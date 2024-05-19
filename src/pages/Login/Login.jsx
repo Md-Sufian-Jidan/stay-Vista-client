@@ -3,15 +3,18 @@ import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../hooks/useAuth'
 import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from 'react-icons/tb';
+import { useState } from 'react';
 
 const Login = () => {
-  const { signIn, signInWithGoogle, loading, setLoading } = useAuth();
+  const { signIn, signInWithGoogle, loading, setLoading, resetPassword } = useAuth();
   const navigate = useNavigate();
+  const [email, setEmail] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = e.target;
     const email = form.email.value;
+    setEmail(email);
     const password = form.password.value;
     try {
       setLoading(true);
@@ -19,6 +22,7 @@ const Login = () => {
       await signIn(email, password);
       navigate('/');
       toast.success('sign in successfully');
+      setLoading(false);
     }
     catch (err) {
       console.log(err);
@@ -31,10 +35,22 @@ const Login = () => {
       await signInWithGoogle();
       navigate('/');
       toast.success('sign up successfully');
+      setLoading(false);
     }
     catch (err) {
       console.log(err);
       toast.error(err.message);
+    }
+  };
+  const handlePasswordReset = async () => {
+    if (!email) return toast.error("please write your email first");
+    try {
+      await resetPassword(email);
+      toast.success('Request Success! Check Your email for further');
+      setLoading(false);
+    } catch (err) {
+      toast.error(err.message);
+      setLoading(false);
     }
   }
   return (
@@ -58,6 +74,7 @@ const Login = () => {
                 Email address
               </label>
               <input
+                onBlur={e => setEmail(e.target.value)}
                 type='email'
                 name='email'
                 id='email'
@@ -96,7 +113,7 @@ const Login = () => {
           </div>
         </form>
         <div className='space-y-1'>
-          <button className='text-xs hover:underline hover:text-rose-500 text-gray-400'>
+          <button onClick={handlePasswordReset} className='text-xs hover:underline hover:text-rose-500 text-gray-400'>
             Forgot password?
           </button>
         </div>
