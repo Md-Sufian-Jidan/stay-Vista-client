@@ -9,7 +9,6 @@ const Login = () => {
   const { signIn, signInWithGoogle, loading, setLoading, resetPassword } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState();
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = e.target;
@@ -52,7 +51,7 @@ const Login = () => {
       toast.error(err.message);
       setLoading(false);
     }
-  }
+  };
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
