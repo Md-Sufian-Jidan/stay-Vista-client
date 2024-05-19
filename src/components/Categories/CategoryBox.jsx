@@ -9,11 +9,15 @@ const CategoryBox = ({ label, icon: Icon }) => {
   const category = params.get('category');
 
   const handleClick = () => {
+    // 1.create query string
     let currentQuery = { category: label };
     const url = queryString.stringifyUrl({
       url: '/',
       query: currentQuery,
-    })
+    });
+    // query output --> /?category=label
+
+    // 2.set query string in url
     navigate(url);
   };
 
@@ -30,5 +34,4 @@ CategoryBox.propTypes = {
   label: PropTypes.string,
   icon: PropTypes.elementType,
 }
-
 export default CategoryBox;
