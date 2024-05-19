@@ -10,7 +10,6 @@ import useAxiosCommon from '../../hooks/useAxiosCommon'
 const RoomDetails = () => {
   const { id } = useParams();
   const axiosCommon = useAxiosCommon();
-
   const { data: room = {}, isLoading } = useQuery({ // : alise
     queryKey: ["room", id],
     queryFn: async () => {
@@ -18,6 +17,8 @@ const RoomDetails = () => {
       return data;
     }
   });
+
+  console.log(room);
 
   if (isLoading) return <LoadingSpinner />
 

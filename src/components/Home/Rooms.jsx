@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Card from './Card'
 import Container from '../Shared/Container'
 import Heading from '../Shared/Heading'
@@ -20,13 +19,15 @@ const Rooms = () => {
   //       setLoading(false)
   //     })
   // }, []);
+  // eslint-disable-next-line no-unused-vars
   const [params, setParams] = useSearchParams();
   const category = params.get('category');
+  console.log(category);
 
   const { data: rooms = {}, isLoading } = useQuery({ // : alise
-    queryKey: ["rooms"],
+    queryKey: ["rooms", category],
     queryFn: async () => {
-      const { data } = await axiosCommon.get('/rooms');
+      const { data } = await axiosCommon.get(`/rooms?category=${category}`);
       // console.log(data);
       return data;
     }
