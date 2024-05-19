@@ -3,22 +3,33 @@ import Card from './Card'
 import Container from '../Shared/Container'
 import Heading from '../Shared/Heading'
 import LoadingSpinner from '../Shared/LoadingSpinner'
+import { useQuery } from '@tanstack/react-query'
+import useAxiosSecure from '../../hooks/useAxiosSecure'
 
 const Rooms = () => {
-  const [rooms, setRooms] = useState([])
-  const [loading, setLoading] = useState(false)
+  const axiosSecure = useAxiosSecure();
+  // const [rooms, setRooms] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // useEffect(() => {
+  //   setLoading(true)
+  //   fetch(`${import.meta.env.VITE_API_URL}/rooms`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setRooms(data)
+  //       setLoading(false)
+  //     })
+  // }, []);
 
-  useEffect(() => {
-    setLoading(true)
-    fetch(`./rooms.json`)
-      .then(res => res.json())
-      .then(data => {
-        setRooms(data)
-        setLoading(false)
-      })
-  }, [])
+  const { data: rooms={}, isLoading } = useQuery({ // : alise
+    queryKey: ["rooms"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get('/rooms');
+      // console.log(data);
+      return data;
+    }
+  })
 
-  if (loading) return <LoadingSpinner />
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <Container>

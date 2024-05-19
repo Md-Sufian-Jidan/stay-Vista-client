@@ -6,8 +6,8 @@ import useAuth from '../../../hooks/useAuth'
 import avatarImg from '../../../assets/images/placeholder.jpg'
 
 const Navbar = () => {
-  const { user, logOut } = useAuth()
-  const [isOpen, setIsOpen] = useState(false)
+  const { user, logOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className='fixed w-full bg-white z-10 shadow-sm'>
