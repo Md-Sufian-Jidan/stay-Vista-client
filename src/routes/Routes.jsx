@@ -8,7 +8,7 @@ import RoomDetails from '../pages/RoomDetails/RoomDetails'
 import PrivateRoute from '../routes/PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Statistic from '../pages/Dashboard/Common/Statistic'
-import AddRoom from '../pages/Dashboard/Host/AddRoomForm'
+import AddRoom from '../pages/Dashboard/Host/AddRoom'
 import MyListings from '../pages/Dashboard/Host/MyListings'
 
 export const router = createBrowserRouter([
