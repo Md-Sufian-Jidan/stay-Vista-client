@@ -6,8 +6,8 @@ import { DateRange } from 'react-date-range';
 const RoomReservation = ({ room }) => {
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: new Date(room.form).toLocaleDateString(),
+      endDate: new Date(room.to).toLocaleDateString(),
       key: 'selection'
     }
   ]);
