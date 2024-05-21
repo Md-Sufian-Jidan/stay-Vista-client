@@ -33,6 +33,7 @@ const Login = () => {
   // handle google login
   const handleGoogleLogin = async () => {
     try {
+      setLoading(true);
       await signInWithGoogle();
       navigate(form || '/');
       toast.success('sign up successfully');
