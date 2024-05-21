@@ -2,11 +2,11 @@ import axios from "axios";
 
 // Image upload
 export const imageUpload = async image => {
-
+    // 1. make a form data to send the img to img bb
     const formData = new FormData();
     formData.append('image', image);
 
-    // 1. upload image and get image url 
+    // 2. upload image and get image url 
     const { data } = await axios.post(
         `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_APIKEY}`,
         formData);

@@ -1,8 +1,9 @@
 import { DateRange } from "react-date-range"
 import { categories } from "../Categories/CategoriesData"
 import PropTypes from 'prop-types'
+import { TbFidgetSpinner } from "react-icons/tb"
 
-const AddRoomForm = ({ dates, handleDates, handleSubmit, setImagePreview, imagePreview, handleImage, imageText }) => {
+const AddRoomForm = ({ dates, handleDates, handleSubmit, imagePreview, handleImage, imageText, loading }) => {
 
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
@@ -68,7 +69,7 @@ const AddRoomForm = ({ dates, handleDates, handleSubmit, setImagePreview, imageP
                                 required
                             />
                         </div>
-                        {/* image dv */}
+                        {/* upload image div */}
                         <div className=' p-4 bg-white w-full  m-auto rounded-lg flex justify-around items-center'>
                             <div className='file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg'>
                                 <div className='flex flex-col w-max mx-auto text-center'>
@@ -90,6 +91,7 @@ const AddRoomForm = ({ dates, handleDates, handleSubmit, setImagePreview, imageP
                                     </label>
                                 </div>
                             </div>
+                            {/* image preview div */}
                             <div className="h-20 w-20 object-cover overflow-hidden flex items-center">
                                 {
                                     imagePreview && <img src={imagePreview} />
@@ -171,10 +173,11 @@ const AddRoomForm = ({ dates, handleDates, handleSubmit, setImagePreview, imageP
                 </div>
 
                 <button
+                    disabled={loading}
                     type='submit'
                     className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500'
                 >
-                    Save & Continue
+                    {loading ? <TbFidgetSpinner className='animate-spin mx-auto' /> : 'Save & Continue'}
                 </button>
             </form>
         </div>
@@ -184,9 +187,9 @@ AddRoomForm.propTypes = {
     dates: PropTypes.object,
     handleDates: PropTypes.func,
     handleSubmit: PropTypes.func,
-    setImagePreview: PropTypes.func,
     imagePreview: PropTypes.object,
     handleImage: PropTypes.func,
-    imageText: PropTypes.object,
+    imageText: PropTypes.string,
+    loading: PropTypes.string,
 }
 export default AddRoomForm;

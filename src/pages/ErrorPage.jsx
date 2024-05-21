@@ -2,7 +2,7 @@ import Button from '../components/Shared/Button/Button'
 import { useNavigate } from 'react-router-dom'
 
 const ErrorPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <section className='bg-white '>
