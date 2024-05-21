@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth'
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from "react-icons/tb";
+import { imageUpload } from '../../Api/Utils';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,22 +16,18 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
     const image = form.image.files[0];
-    const formData = new FormData(); // new item know your self
-    formData.append('image', image);
+    // const formData = new FormData(); // new item know your self
+    // formData.append('image', image);
     try {
       setLoading(true);
       // 1. upload image and get image url 
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_APIKEY}`,
-        formData); // the from data will not be a object remember this
-
-      console.log(data.data.display_url);
+      const image_url = await imageUpload(image);
       // 2. sign up or user registration
       const result = await createUser(email, password);
       console.log(result);
 
       // 3. save user name and photo
-      await updateUserProfile(name, data.data.display_url);
+      await updateUserProfile(name, image_url);
       navigate('/');
       toast.success('sign up successfully');
     }
