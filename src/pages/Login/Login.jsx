@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading, setLoading, resetPassword } = useAuth();
+  const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state;
-  const navigate = useNavigate();
   const [email, setEmail] = useState();
 
   const handleSubmit = async (e) => {
@@ -29,6 +29,7 @@ const Login = () => {
     catch (err) {
       console.log(err);
       toast.error(err.message);
+      setLoading(false);
     }
   };
   // handle google login
@@ -49,10 +50,12 @@ const Login = () => {
   const handlePasswordReset = async () => {
     if (!email) return toast.error("please write your email first");
     try {
+      setLoading(true);
       await resetPassword(email);
       toast.success('Request Success! Check Your email for further');
       setLoading(false);
     } catch (err) {
+      setLoading(true);
       toast.error(err.message);
       setLoading(false);
     }
