@@ -11,7 +11,7 @@ const Login = () => {
   const form = location?.state;
   const navigate = useNavigate();
   const [email, setEmail] = useState();
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = e.target;
@@ -43,6 +43,7 @@ const Login = () => {
     catch (err) {
       console.log(err);
       toast.error(err.message);
+      setLoading(false);
     }
   };
   const handlePasswordReset = async () => {

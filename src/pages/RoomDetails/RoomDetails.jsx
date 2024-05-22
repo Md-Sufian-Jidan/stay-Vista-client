@@ -20,12 +20,12 @@ const RoomDetails = () => {
 
   // console.log(room);
 
-  if (isLoading) return <LoadingSpinner />
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Container>
       <Helmet>
-        <title>{room?.title}</title>
+        <title>Stay vista | {room?.title}</title>
       </Helmet>
       {room && (
         <div className='max-w-screen-lg mx-auto'>
