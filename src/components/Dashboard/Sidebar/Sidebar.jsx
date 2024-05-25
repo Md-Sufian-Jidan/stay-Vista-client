@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import { GrLogout } from 'react-icons/gr'
 import { FcSettings } from 'react-icons/fc'
-import { BsFillHouseAddFill } from 'react-icons/bs'
+// import { BsFillHouseAddFill } from 'react-icons/bs'
 // import { BsFillHouseAddFill, BsFingerprint } from 'react-icons/bs'
 // import { GrUserAdmin } from 'react-icons/gr'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsGraphUp } from 'react-icons/bs'
 import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
-import { MdHomeWork } from 'react-icons/md'
+// import { MdHomeWork } from 'react-icons/md'
 import useRole from '../../../hooks/useRole'
 import MenuItem from './Menu/MenuItem'
+import HostMenu from './Menu/HostMenu'
+import AdminMenu from './Menu/AdminMenu'
+import GuestMenu from './Menu/GuestMenu'
 
 const Sidebar = () => {
     const { logOut } = useAuth();
@@ -75,12 +78,10 @@ const Sidebar = () => {
                         <nav>
                             {/* Statistics */}
                             <MenuItem label="Statistics" address="/dashboard" icon={BsGraphUp} />
-
-                            {/* Add Room */}
-                            <MenuItem label="Add Room" address="add-room" icon={BsFillHouseAddFill} />
-
-                            {/* My Listing */}
-                            <MenuItem label="My Listings" address="my-listings" icon={MdHomeWork} />
+                            {/* add room & my listing */}
+                            {role?.role === 'guest' && <GuestMenu />}
+                            {role?.role === 'host' && <HostMenu />}
+                            {role?.role === 'admin' && <AdminMenu />}
                         </nav>
                     </div>
                 </div>
