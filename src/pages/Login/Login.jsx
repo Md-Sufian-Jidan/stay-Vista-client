@@ -17,7 +17,7 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     setEmail(email);
-    const password = form.password.value;
+    const password = form?.password?.value;
     try {
       setLoading(true);
       // 1. sign in user

@@ -2,11 +2,11 @@ import Container from '../Container'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import useAuth from '../../../hooks/useAuth'
 import avatarImg from '../../../assets/images/placeholder.jpg'
 import HostModal from '../../Modal/HostModal'
 import toast from 'react-hot-toast'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
+import useAuth from '../../../hooks/useAuth'
 
 const Navbar = () => {
   const axiosSecure = useAxiosSecure();

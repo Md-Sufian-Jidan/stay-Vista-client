@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../hooks/useAuth'
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import { TbFidgetSpinner } from "react-icons/tb";
 import { imageUpload } from '../../Api/Utils';
@@ -30,10 +29,12 @@ const SignUp = () => {
       await updateUserProfile(name, image_url);
       navigate('/');
       toast.success('sign up successfully');
+      setLoading(false);
     }
     catch (err) {
       console.log(err);
       toast.error(err.message);
+      setLoading(false);
     }
   };
   // handle google login
@@ -42,10 +43,12 @@ const SignUp = () => {
       await signInWithGoogle();
       navigate('/');
       toast.success('sign up successfully');
+      setLoading(false);
     }
     catch (err) {
       console.log(err);
       toast.error(err.message);
+      setLoading(false);
     }
   }
   return (

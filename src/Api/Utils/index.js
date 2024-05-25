@@ -12,6 +12,6 @@ export const imageUpload = async image => {
         formData);
     // the from data will not be a object remember this
     // warning don't put the form Data in a object
-    console.log('called');
+    // console.log('called');
     return data.data.display_url;
 }
