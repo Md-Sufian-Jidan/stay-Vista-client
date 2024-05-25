@@ -6,7 +6,6 @@ import { BsFillHouseAddFill } from 'react-icons/bs'
 // import { GrUserAdmin } from 'react-icons/gr'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsGraphUp } from 'react-icons/bs'
-import { NavLink } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import { MdHomeWork } from 'react-icons/md'
@@ -78,10 +77,10 @@ const Sidebar = () => {
                             <MenuItem label="Statistics" address="/dashboard" icon={BsGraphUp} />
 
                             {/* Add Room */}
-                            <MenuItem label="Add Room" address="/add-room" icon={BsFillHouseAddFill} />
+                            <MenuItem label="Add Room" address="add-room" icon={BsFillHouseAddFill} />
 
                             {/* My Listing */}
-                            <MenuItem label="My Listings" address="/my-listings" icon={MdHomeWork} />
+                            <MenuItem label="My Listings" address="my-listings" icon={MdHomeWork} />
                         </nav>
                     </div>
                 </div>
