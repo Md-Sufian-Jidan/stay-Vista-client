@@ -1,6 +1,48 @@
 import { Helmet } from 'react-helmet-async'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import RoomDataRow from '../../../components/Dashboard/TableRows/RoomDataRow'
+// import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 
 const ManageUsers = () => {
+    //
+    // const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    // Fetch room data
+    const { data: users = [], isLoading, refetch } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/users`)
+            return data;
+        }
+    });
+    // delete a data from db
+    const { mutateAsync } = useMutation({
+        mutationFn: async (id) => {
+            const { data } = await axiosSecure.delete(`/user/${id}`)
+            return data;
+        },
+        onSuccess: data => {
+            console.log(data);
+            toast.success('Successfully deleted');
+            refetch();
+        }
+    })
+
+    // handle delete 
+    const handleDelete = async id => {
+        try {
+            await mutateAsync(id);
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
+
+    console.log(users);
+    if (isLoading) return <LoadingSpinner />
+    //-------------
     return (
         <>
             <div className='container mx-auto px-4 sm:px-8'>
@@ -40,7 +82,13 @@ const ManageUsers = () => {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>{/* User data table row */}</tbody>
+                                <tbody>
+                                    {/* User data table row */}
+                                    {
+                                        users?.map(user => <RoomDataRow key={user._id} room={user}
+                                            handleDelete={handleDelete} />)
+                                    }
+                                    </tbody>
                             </table>
                         </div>
                     </div>

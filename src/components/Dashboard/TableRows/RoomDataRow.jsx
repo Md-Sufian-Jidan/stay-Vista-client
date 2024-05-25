@@ -4,6 +4,7 @@ import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
 
 const RoomDataRow = ({ room, handleDelete }) => {
+    console.log(room);
     // for delete modal
     let [isOpen, setIsOpen] = useState(false);
     const closeModal = () => {
