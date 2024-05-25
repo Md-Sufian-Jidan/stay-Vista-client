@@ -11,16 +11,17 @@ import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import { MdHomeWork } from 'react-icons/md'
 import useRole from '../../../hooks/useRole'
+import MenuItem from './Menu/MenuItem'
 
 const Sidebar = () => {
-    const { logOut } = useAuth()
-    const [isActive, setActive] = useState(false)
+    const { logOut } = useAuth();
+    const [isActive, setActive] = useState(false);
     const [role] = useRole();
-    console.log(role);
+    console.log(role?.role);
     // Sidebar Responsive Handler
     const handleToggle = () => {
-        setActive(!isActive)
-    }
+        setActive(!isActive);
+    };
     return (
         <>
             {/* Small Screen Navbar */}
@@ -74,44 +75,13 @@ const Sidebar = () => {
                         {/*  Menu Items */}
                         <nav>
                             {/* Statistics */}
-                            <NavLink
-                                // to='statistics'
-                                to="/dashboard"
-                                end
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                                    }`
-                                }
-                            >
-                                <BsGraphUp className='w-5 h-5' />
-
-                                <span className='mx-4 font-medium'>Statistics</span>
-                            </NavLink>
+                            <MenuItem label="Statistics" address="/dashboard" icon={BsGraphUp} />
 
                             {/* Add Room */}
-                            <NavLink
-                                to='add-room'
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                                    }`
-                                }
-                            >
-                                <BsFillHouseAddFill className='w-5 h-5' />
+                            <MenuItem label="Add Room" address="/add-room" icon={BsFillHouseAddFill} />
 
-                                <span className='mx-4 font-medium'>Add Room</span>
-                            </NavLink>
                             {/* My Listing */}
-                            <NavLink
-                                to='my-listings'
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                                    }`
-                                }
-                            >
-                                <MdHomeWork className='w-5 h-5' />
-
-                                <span className='mx-4 font-medium'>My Listings</span>
-                            </NavLink>
+                            <MenuItem label="My Listings" address="/my-listings" icon={MdHomeWork} />
                         </nav>
                     </div>
                 </div>
@@ -120,23 +90,13 @@ const Sidebar = () => {
                     <hr />
 
                     {/* Profile Menu */}
-                    <NavLink
-                        to='/dashboard/profile'
-                        className={({ isActive }) =>
-                            `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                            }`
-                        }
-                    >
-                        <FcSettings className='w-5 h-5' />
+                    <MenuItem label="Profile" address="/dashboard/profile" icon={FcSettings} />
 
-                        <span className='mx-4 font-medium'>Profile</span>
-                    </NavLink>
                     <button
                         onClick={logOut}
                         className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
                     >
                         <GrLogout className='w-5 h-5' />
-
                         <span className='mx-4 font-medium'>Logout</span>
                     </button>
                 </div>

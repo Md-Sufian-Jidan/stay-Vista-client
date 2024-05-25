@@ -13,7 +13,7 @@ const useRole = () => {
         // enabled: loading ? false : true,
         enabled: !loading && !!user?.email, // enabled means wait the queryFn.
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/user/${user?.email}`);
+            const { data } = await axiosSecure(`/user/${user?.email}`);
             return data;
         },
     });
