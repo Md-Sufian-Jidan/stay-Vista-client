@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import RoomDataRow from '../../../components/Dashboard/TableRows/RoomDataRow'
 // import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
+import UserDataRow from '../../../components/Dashboard/TableRows/UserDataRow'
 
 const ManageUsers = () => {
     //
@@ -28,7 +28,7 @@ const ManageUsers = () => {
             console.log(data);
             toast.success('Successfully deleted');
             refetch();
-        }
+        },
     })
 
     // handle delete 
@@ -85,10 +85,9 @@ const ManageUsers = () => {
                                 <tbody>
                                     {/* User data table row */}
                                     {
-                                        users?.map(user => <RoomDataRow key={user._id} room={user}
-                                            handleDelete={handleDelete} />)
+                                        users?.map(user => <UserDataRow key={user?._id} user={user} refetch={refetch} />)
                                     }
-                                    </tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>
