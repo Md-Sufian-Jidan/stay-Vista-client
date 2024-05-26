@@ -19,7 +19,6 @@ const Login = () => {
     setEmail(email);
     const password = form?.password?.value;
     try {
-      setLoading(true);
       // 1. sign in user
       await signIn(email, password);
       navigate(form || '/');
@@ -35,7 +34,6 @@ const Login = () => {
   // handle google login
   const handleGoogleLogin = async () => {
     try {
-      setLoading(true);
       await signInWithGoogle();
       navigate(from || '/');
       toast.success('sign up successfully');
@@ -50,12 +48,10 @@ const Login = () => {
   const handlePasswordReset = async () => {
     if (!email) return toast.error("please write your email first");
     try {
-      setLoading(true);
       await resetPassword(email);
       toast.success('Request Success! Check Your email for further');
       setLoading(false);
     } catch (err) {
-      setLoading(true);
       toast.error(err.message);
       setLoading(false);
     }

@@ -11,7 +11,7 @@ const ManageUsers = () => {
     // const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     // Fetch room data
-    const { data: users = [], isLoading, refetch } = useQuery({
+    const { data: users, isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/users`)
