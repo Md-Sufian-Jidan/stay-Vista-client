@@ -32,7 +32,7 @@ const Profile = () => {
 
                     <p className='p-2 px-4 text-xs text-white bg-pink-500 rounded-full '>
                         {/* {role?.role.split('')[0].toUpperCase() + role?.role.substring(1,4)} */}
-                        {role?.role.split('')[0].toUpperCase() + role?.role.substring(1, 4)}
+                        {role?.role.split('')[0].toUpperCase() + role?.role.substring(1, 5)}
                     </p>
                     <p className='mt-2 text-xl font-medium text-gray-800 '>
                         User Id: {user?.uid}
