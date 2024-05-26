@@ -74,7 +74,6 @@ const AuthProvider = ({ children }) => {
       status: 'Verified'
     }
     const { data } = await axiosCommon.put('/user', currentUser)
-    console.log('user created');
     return data;
   };
 
