@@ -1,14 +1,11 @@
 import { Helmet } from 'react-helmet-async'
-import { useMutation, useQuery } from '@tanstack/react-query'
-// import useAuth from '../../../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 import UserDataRow from '../../../components/Dashboard/TableRows/UserDataRow'
 
 const ManageUsers = () => {
-    //
-    // const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     // Fetch room data
     const { data: users, isLoading, refetch } = useQuery({
@@ -19,28 +16,27 @@ const ManageUsers = () => {
         }
     });
     // delete a data from db
-    const { mutateAsync } = useMutation({
-        mutationFn: async (id) => {
-            const { data } = await axiosSecure.delete(`/user/${id}`)
-            return data;
-        },
-        onSuccess: data => {
-            console.log(data);
-            toast.success('Successfully deleted');
-            refetch();
-        },
-    });
-
-    // handle delete 
-    const handleDelete = async id => {
-        try {
-            await mutateAsync(id);
-        } catch (err) {
-            toast.error(err.message);
-        }
-    };
-
+    // const { mutateAsync } = useMutation({
+    //     mutationFn: async (id) => {
+    //         const { data } = await axiosSecure.delete(`/user/${id}`)
+    //         return data;
+    //     },
+    //     onSuccess: data => {
+    //         console.log(data);
+    //         toast.success('Successfully deleted');
+    //         refetch();
+    //     },
+    // });
+    // // handle delete 
+    // const handleDelete = async id => {
+    //     try {
+    //         await mutateAsync(id);
+    //     } catch (err) {
+    //         toast.error(err.message);
+    //     }
+    // };
     console.log(users);
+
     if (isLoading) return <LoadingSpinner />
     //-------------
     return (

@@ -41,8 +41,8 @@ const Login = () => {
     }
     catch (err) {
       console.log(err);
-      toast.error(err.message);
       setLoading(false);
+      toast.error(err.message);
     }
   };
   const handlePasswordReset = async () => {
