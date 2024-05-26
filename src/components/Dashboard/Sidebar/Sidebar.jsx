@@ -80,7 +80,7 @@ const Sidebar = () => {
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         {/* Conditional toggle button here.. */}
                         {
-                            role?.role && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />
+                            role?.role === 'host' && <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />
                         }
 
                         {/*  Menu Items */}
@@ -89,7 +89,7 @@ const Sidebar = () => {
                             <MenuItem label="Statistics" address="/dashboard" icon={BsGraphUp} />
                             {/* add room & my listing */}
                             {role?.role === 'guest' && <GuestMenu />}
-                            {role?.role === 'host' &&  toggle? <HostMenu /> : <GuestMenu />}
+                            {role?.role === 'host' ? toggle ? <HostMenu /> : <GuestMenu /> : undefined}
                             {role?.role === 'admin' && <AdminMenu />}
                         </nav>
                     </div>
