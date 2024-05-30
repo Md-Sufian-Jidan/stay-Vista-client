@@ -10,7 +10,7 @@ import CheckOutForm from '../Form/CheckOutFrom';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_GATEWAY);
 
-const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
+const BookingModal = ({ closeModal, isOpen, bookingInfo, refetch }) => {
     // console.log(bookingInfo);
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -75,28 +75,10 @@ const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
                                 <hr className='mt-8 ' />
                                 {/* checkout form */}
                                 <Elements stripe={stripePromise}>
-                                    <CheckOutForm />
+                                    <CheckOutForm closeModal={closeModal} bookingInfo={bookingInfo} refetch={refetch} />
                                 </Elements>
                                 {/* checkout form end */}
-                                <div className='flex mt-2 justify-around'>
-                                    <button
-                                        type='button'
-                                        className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
-                                    // onClick={closeModal}
-                                    >
-                                        Book
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            // handleDelete(id);
-                                            closeModal();
-                                        }}
-                                        type='button'
-                                        className='inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2'
-                                    >
-                                        No
-                                    </button>
-                                </div>
+                               
                             </DialogPanel>
                         </TransitionChild>
                     </div>
@@ -110,6 +92,7 @@ BookingModal.propTypes = {
     bookingInfo: PropTypes.object,
     closeModal: PropTypes.func,
     isOpen: PropTypes.bool,
+    refetch: PropTypes.func,
 }
 
 export default BookingModal
