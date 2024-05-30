@@ -1,12 +1,32 @@
 import { Helmet } from 'react-helmet-async'
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAuth from '../../../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
+import BookingDataRow from '../../../components/Dashboard/TableRows/BookingDataRow';
 
 const ManageBookings = () => {
+    const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
+
+    // fetched all the bookings for this logged in user
+    const { data: bookings = [], isLoading, refetch } = useQuery({
+        queryKey: ['bookings'],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/manage-bookings/${user.email}`)
+            return data;
+        }
+    });
+    console.log(bookings);
+
+    if (isLoading) return <LoadingSpinner />
+
+
     return (
         <>
             <Helmet>
                 <title>Manage Bookings</title>
             </Helmet>
-
             <div className='container mx-auto px-4 sm:px-8'>
                 <div className='py-8'>
                     <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
@@ -54,6 +74,12 @@ const ManageBookings = () => {
                                 </thead>
                                 <tbody>
                                     {/* Table row data */}
+                                    {
+                                        bookings?.map(booking => <BookingDataRow
+                                            key={booking?._id}
+                                            booking={booking}
+                                            refetch={refetch} />)
+                                    }
                                 </tbody>
                             </table>
                         </div>

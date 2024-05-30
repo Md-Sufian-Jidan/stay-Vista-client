@@ -23,7 +23,6 @@ const BookingDataRow = ({ booking, refetch }) => {
         onSuccess: async (data) => {
             console.log(data);
             toast.success('Booking Cancel');
-
             // change room status back to false
             await axiosSecure.patch(`/room/status/${booking?.roomId}`, { status: false })
             refetch();
@@ -66,7 +65,7 @@ const BookingDataRow = ({ booking, refetch }) => {
                         <div className='block relative'>
                             <img
                                 alt='profile'
-                                src={booking?.guest?.image}
+                                src={booking?.guest?.photo}
                                 className='mx-auto object-cover rounded h-10 w-15 '
                             />
                         </div>
