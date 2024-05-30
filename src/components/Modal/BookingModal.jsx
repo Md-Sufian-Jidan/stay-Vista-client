@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
-import {
-    Dialog,
-    Transition,
-    TransitionChild,
-    DialogPanel,
-    DialogTitle,
-} from '@headlessui/react'
+import { Dialog, Transition, TransitionChild, DialogPanel, DialogTitle, } from '@headlessui/react'
 import { format } from 'date-fns'
 import { Fragment } from 'react'
+
+// payment gateway implement
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckOutForm from '../Form/CheckOutFrom';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_GATEWAY);
 
 const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
     // console.log(bookingInfo);
@@ -72,8 +73,12 @@ const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
                                     </p>
                                 </div>
                                 <hr className='mt-8 ' />
+                                {/* checkout form */}
+                                <Elements stripe={stripePromise}>
+                                    <CheckOutForm />
+                                </Elements>
+                                {/* checkout form end */}
                                 <div className='flex mt-2 justify-around'>
-
                                     <button
                                         type='button'
                                         className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
@@ -92,7 +97,6 @@ const BookingModal = ({ closeModal, isOpen, bookingInfo }) => {
                                         No
                                     </button>
                                 </div>
-                                {/* checkout form */}
                             </DialogPanel>
                         </TransitionChild>
                     </div>

@@ -7,10 +7,11 @@ import { useState } from 'react';
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading, setLoading, resetPassword } = useAuth();
+  const [email, setEmail] = useState();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state;
-  const [email, setEmail] = useState();
+  const from = location?.state?.from?.pathname || '/';
+  console.log(from);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,9 +22,9 @@ const Login = () => {
     try {
       // 1. sign in user
       await signIn(email, password);
-      navigate(form || '/');
-      toast.success('sign in successfully');
       setLoading(false);
+      navigate(from);
+      toast.success('sign in successfully');
     }
     catch (err) {
       console.log(err);
@@ -35,13 +36,13 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
-      navigate(from || '/');
+      navigate(from);
       toast.success('sign up successfully');
-      setLoading(false);
+      return setLoading(false);
     }
     catch (err) {
-      console.log(err);
       setLoading(false);
+      console.log(err);
       toast.error(err.message);
     }
   };
