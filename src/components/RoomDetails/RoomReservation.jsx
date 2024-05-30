@@ -50,11 +50,18 @@ const RoomReservation = ({ room, refetch }) => {
         /></div>
       <hr />
       <div className='p-4'>
-        <Button disabled={room?.booked === true} onClick={() => setIsOpen(true)} label={'Reserve'} />
+        <Button disabled={room?.booked === true} onClick={() => setIsOpen(true)}
+          label={room.booked === true ? 'Booked' : 'Reserve'} />
       </div>
       {/* modal */}
       <BookingModal isOpen={isOpen} closeModal={closeModal}
-        bookingInfo={{ ...room, price: totalPrice, guest: { name: user?.displayName } }} refetch={refetch}  />
+        bookingInfo={{
+          ...room,
+          price: totalPrice,
+          guest: { name: user?.displayName, email: user?.email, photo: user?.photoURL }
+        }}
+        refetch={refetch} />
+
       <hr />
       <div className='p-4 flex items-center justify-between font-semibold text-lg'>
         <div>Total</div>
@@ -66,6 +73,7 @@ const RoomReservation = ({ room, refetch }) => {
 
 RoomReservation.propTypes = {
   room: PropTypes.object,
+  refetch: PropTypes.func,
 }
 
 export default RoomReservation

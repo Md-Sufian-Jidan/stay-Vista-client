@@ -106,7 +106,7 @@ const CheckOutForm = ({ closeModal, bookingInfo, refetch }) => {
                 const { data } = await axiosSecure.post('/booking', paymentInfo)
 
                 // 3. change room status to booked in db
-                await axiosSecure.post(`/room/status/${bookingInfo?._id}`, { status: true })
+                await axiosSecure.patch(`/room/status/${bookingInfo?._id}`, { status: true })
 
                 //update ui
                 refetch();

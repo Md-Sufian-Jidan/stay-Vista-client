@@ -28,7 +28,7 @@ const MyListings = () => {
             toast.success('Successfully deleted');
             refetch();
         }
-    })
+    });
 
     // handle delete 
     const handleDelete = async id => {
