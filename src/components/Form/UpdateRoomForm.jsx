@@ -1,9 +1,10 @@
 import { categories } from "../Categories/CategoriesData"
+import PropTypes from 'prop-types';
 
-const UpdateRoomForm = () => {
+const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData }) => {
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className='grid grid-cols-1 gap-10'>
                     <div className='space-y-1 text-sm'>
                         <label htmlFor='location' className='block text-gray-600'>
@@ -13,6 +14,9 @@ const UpdateRoomForm = () => {
                             className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                             name='location'
                             id='location'
+                            //for real controlled input
+                            value={roomData?.location}
+                            onChange={(e) => setRoomData({ ...roomData, location: e.target.value })}
                             type='text'
                             placeholder='Location'
                             required
@@ -26,6 +30,8 @@ const UpdateRoomForm = () => {
                             className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                             name='title'
                             id='title'
+                            value={roomData?.title}
+                            onChange={(e) => setRoomData({ ...roomData, title: e.target.value })}
                             type='text'
                             placeholder='Title'
                             required
@@ -40,6 +46,8 @@ const UpdateRoomForm = () => {
                             required
                             className='w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md'
                             name='category'
+                            value={roomData?.category}
+                            onChange={(e) => setRoomData({ ...roomData, category: e.target.value })}
                         >
                             {categories.map(category => (
                                 <option value={category.label} key={category.label}>
@@ -53,7 +61,9 @@ const UpdateRoomForm = () => {
                         <label htmlFor='location' className='block text-gray-600'>
                             Select Availability Range
                         </label>
-                        <div className='flex justify-center pt-2'>{/* Calender */}</div>
+                        <div className='flex justify-center pt-2'>
+                            {/* Calender */}
+                        </div>
                     </div>
 
                     <div className=' p-4 bg-white w-full  m-auto rounded-lg'>
@@ -61,6 +71,7 @@ const UpdateRoomForm = () => {
                             <div className='flex flex-col w-max mx-auto text-center'>
                                 <label>
                                     <input
+                                        onChange={(e) => handleImage(e.target.files[0])}
                                         className='text-sm cursor-pointer w-36 hidden'
                                         type='file'
                                         name='image'
@@ -84,6 +95,8 @@ const UpdateRoomForm = () => {
                                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                                 name='price'
                                 id='price'
+                                value={roomData?.price}
+                                onChange={(e) => setRoomData({ ...roomData, price: e.target.value })}
                                 type='number'
                                 placeholder='Price'
                                 required
@@ -98,6 +111,8 @@ const UpdateRoomForm = () => {
                                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                                 name='total_guest'
                                 id='guest'
+                                value={roomData?.guests}
+                                onChange={(e) => setRoomData({ ...roomData, guests: e.target.value })}
                                 type='number'
                                 placeholder='Total guest'
                                 required
@@ -114,6 +129,8 @@ const UpdateRoomForm = () => {
                                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                                 name='bedrooms'
                                 id='bedrooms'
+                                value={roomData?.bedroom}
+                                onChange={(e) => setRoomData({ ...roomData, bedrooms: e.target.value })}
                                 type='number'
                                 placeholder='Bedrooms'
                                 required
@@ -128,6 +145,8 @@ const UpdateRoomForm = () => {
                                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                                 name='bathrooms'
                                 id='bathrooms'
+                                value={roomData?.bathrooms}
+                                onChange={(e) => setRoomData({ ...roomData, bathrooms: e.target.value })}
                                 type='number'
                                 placeholder='Bathrooms'
                                 required
@@ -144,6 +163,8 @@ const UpdateRoomForm = () => {
                             id='description'
                             className='block rounded-md focus:rose-300 w-full h-32 px-4 py-3 text-gray-800  border border-rose-300 focus:outline-rose-500 '
                             name='description'
+                            value={roomData?.description}
+                            onChange={(e) => setRoomData({ ...roomData, description: e.target.value })}
                         ></textarea>
                     </div>
                 </div>
@@ -159,4 +180,10 @@ const UpdateRoomForm = () => {
     )
 }
 
+UpdateRoomForm.propTypes = {
+    roomData: PropTypes.object,
+    handleSubmit: PropTypes.func,
+    handleImage: PropTypes.func,
+    setRoomData: PropTypes.func,
+}
 export default UpdateRoomForm

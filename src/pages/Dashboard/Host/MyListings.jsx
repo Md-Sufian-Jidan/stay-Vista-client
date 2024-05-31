@@ -103,7 +103,7 @@ const MyListings = () => {
                                     {/* Room row data */}
                                     {
                                         rooms?.map(room => <RoomDataRow key={room._id} room={room}
-                                            handleDelete={handleDelete} />)
+                                            handleDelete={handleDelete} refetch={refetch} />)
                                     }
                                 </tbody>
                             </table>

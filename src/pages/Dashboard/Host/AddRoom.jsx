@@ -14,7 +14,7 @@ const AddRoom = () => {
   const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
   const [imageText, setImageText] = useState('Upload image');
-  
+
   // set the calender
   const [dates, setDates] = useState({
     startDate: new Date(),
@@ -27,6 +27,7 @@ const AddRoom = () => {
     console.log(item);
     setDates(item.selection);
   };
+
   const { mutateAsync } = useMutation({
     mutationFn: async (roomData) => {
       const { data } = await axiosSecure.post('/room', roomData)
@@ -90,8 +91,9 @@ const AddRoom = () => {
         <title>Add Room | Dashboard</title>
       </Helmet>
       {/* form */}
-      < AddRoomForm dates={dates} handleDates={handleDates} handleSubmit={handleSubmit}
-        setImagePreview={setImagePreview} imagePreview={imagePreview} handleImage={handleImage} imageText={imageText} loading={loading} />
+      < AddRoomForm dates={dates} handleDates={handleDates} handleSubmit={handleSubmit} setImagePreview={setImagePreview}
+        imagePreview={imagePreview} handleImage={handleImage}
+        imageText={imageText} loading={loading} />
     </>
   );
 };

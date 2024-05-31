@@ -8,8 +8,45 @@ import {
 } from '@headlessui/react'
 import { Fragment } from 'react'
 import UpdateRoomForm from '../Form/UpdateRoomForm'
+import useAxiosSecure from '../../hooks/useAxiosSecure'
+import { useState } from 'react'
+import { imageUpload } from '../../Api/Utils'
 
-const UpdateRoomModal = ({ setIsEditModalOpen, isOpen }) => {
+const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
+    const axiosSecure = useAxiosSecure();
+    // custom states
+    const { loading, setLoading } = useState();
+    const [roomData, setRoomData] = useState(room);
+
+    // handle Image Update
+    const handleImage = async image => {
+        setLoading(true);
+        try {
+            const image_url = await imageUpload(image);
+            setRoomData({ ...roomData, image: image_url })
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+
+    // set the calender
+    const [dates, setDates] = useState({
+        startDate: new Date(room?.from),
+        endDate: new Date(room?.to),
+        key: 'selection'
+    });
+    // Date range handler
+    const handleDates = item => {
+        console.log(item);
+        setDates(item.selection);
+    };
+
+    // handle submit
+    const handelSubmit = async (e) => {
+        e.preventDefault()
+        console.log('submit');
+    }
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog
@@ -49,7 +86,16 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen }) => {
                                 </DialogTitle>
                                 <div className='mt-2 w-full'>
                                     {/* Update room form */}
-                                    <UpdateRoomForm />
+                                    <UpdateRoomForm
+                                        refetch={refetch}
+
+                                        handelSubmit={handelSubmit}
+                                        handleDates={handleDates}
+                                        dates={dates}
+                                        roomData={roomData}
+                                        loading={loading}
+                                        handleImage={handleImage}
+                                        setRoomData={setRoomData} />
                                 </div>
                                 <hr className='mt-8 ' />
                                 <div className='mt-2 '>
@@ -73,6 +119,8 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen }) => {
 UpdateRoomModal.propTypes = {
     setIsEditModalOpen: PropTypes.func,
     isOpen: PropTypes.bool,
+    room: PropTypes.object,
+    refetch: PropTypes.func,
 }
 
 export default UpdateRoomModal

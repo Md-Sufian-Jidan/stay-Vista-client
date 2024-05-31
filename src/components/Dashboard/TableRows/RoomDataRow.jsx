@@ -4,7 +4,7 @@ import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
 import UpdateRoomModal from '../../Modal/UpdateRoomModal'
 
-const RoomDataRow = ({ room, handleDelete }) => {
+const RoomDataRow = ({ room, handleDelete, refetch }) => {
     console.log(room);
     // for delete modal
     const [isOpen, setIsOpen] = useState(false);
@@ -70,7 +70,7 @@ const RoomDataRow = ({ room, handleDelete }) => {
                     <span className='relative'>Update</span>
                 </button>
                 {/* Update Modal */}
-                <UpdateRoomModal setIsEditModalOpen={setIsEditOpen} isOpen={isEditOpen} />
+                <UpdateRoomModal room={room} refetch={refetch} setIsEditModalOpen={setIsEditOpen} isOpen={isEditOpen}  />
             </td>
         </tr>
     )
@@ -79,6 +79,7 @@ const RoomDataRow = ({ room, handleDelete }) => {
 RoomDataRow.propTypes = {
     room: PropTypes.object,
     handleDelete: PropTypes.func,
+    refetch: PropTypes.func,
 }
 
 export default RoomDataRow
