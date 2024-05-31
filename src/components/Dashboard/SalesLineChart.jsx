@@ -42,6 +42,7 @@ const SalesLineChart = ({ data }) => {
 }
 
 SalesLineChart.propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.node,
+    // data: PropTypes.object,
 }
 export default SalesLineChart

@@ -2,8 +2,25 @@ import { Calendar } from 'react-date-range'
 import { FaDollarSign } from 'react-icons/fa'
 import { BsFillCartPlusFill } from 'react-icons/bs'
 import { GiPlayerTime } from 'react-icons/gi'
+import useAxiosSecure from '../../../hooks/useAxiosSecure'
+import { useQuery } from '@tanstack/react-query'
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
+import SalesLineChart from '../../../components/Dashboard/SalesLineChart'
+import { formatDistanceToNow } from 'date-fns'
 
 const GuestStatistics = () => {
+  const axiosSecure = useAxiosSecure();
+  // Fetch Admin Stat Data here
+  const { data: statData, isLoading } = useQuery({
+    queryKey: ['statData'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get('/guest-stat')
+      return data;
+    }
+  });
+  console.log(statData);
+
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div>
       <div className='mt-12'>
@@ -21,7 +38,7 @@ const GuestStatistics = () => {
                 Total Spent
               </p>
               <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                $343
+                ${statData?.totalSales}
               </h4>
             </div>
           </div>
@@ -38,7 +55,7 @@ const GuestStatistics = () => {
                 Total Bookings
               </p>
               <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                34
+                {statData?.totalBookings}
               </h4>
             </div>
           </div>
@@ -55,7 +72,7 @@ const GuestStatistics = () => {
                 Guest Since...
               </p>
               <h4 className='block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900'>
-                3 Days
+                {statData?.guestSince && formatDistanceToNow(statData?.guestSince)}
               </h4>
             </div>
           </div>
@@ -65,6 +82,7 @@ const GuestStatistics = () => {
           {/* Total Sales Graph */}
           <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden xl:col-span-2'>
             {/* Render Chart Here */}
+            <SalesLineChart />
           </div>
           {/* Calender */}
           <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden'>

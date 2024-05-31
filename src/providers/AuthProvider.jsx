@@ -90,7 +90,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       return unsubscribe()
     }
-  }, [])
+  }, []);
 
   const authInfo = {
     user,

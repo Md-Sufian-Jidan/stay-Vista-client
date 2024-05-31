@@ -11,6 +11,7 @@ import useAuth from '../../../hooks/useAuth'
 const Navbar = () => {
   const axiosSecure = useAxiosSecure();
   const { user, logOut } = useAuth();
+  // custom Modal state
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState();
   // close the modal function
