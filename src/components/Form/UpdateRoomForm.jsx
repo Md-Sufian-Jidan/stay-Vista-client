@@ -1,7 +1,12 @@
 import { categories } from "../Categories/CategoriesData"
+import { DateRange } from "react-date-range"
 import PropTypes from 'prop-types';
+import LoadingSpinner from "../Shared/LoadingSpinner";
 
-const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData }) => {
+
+const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData, dates, handleDates, loading }) => {
+
+    if (loading) return <LoadingSpinner />
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
             <form onSubmit={handleSubmit}>
@@ -63,6 +68,13 @@ const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData }) =>
                         </label>
                         <div className='flex justify-center pt-2'>
                             {/* Calender */}
+                            <DateRange
+                                rangeColors={['#f43f5e']}
+                                editableDateInputs={true}
+                                onChange={item => handleDates(item)}
+                                moveRangeOnFirstSelection={false}
+                                ranges={[dates]}
+                            />
                         </div>
                     </div>
 
@@ -185,5 +197,8 @@ UpdateRoomForm.propTypes = {
     handleSubmit: PropTypes.func,
     handleImage: PropTypes.func,
     setRoomData: PropTypes.func,
-}
-export default UpdateRoomForm
+    dates: PropTypes.object,
+    handleDates: PropTypes.func,
+    loading:PropTypes.bool,
+};
+export default UpdateRoomForm;

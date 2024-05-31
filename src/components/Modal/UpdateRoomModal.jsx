@@ -11,6 +11,7 @@ import UpdateRoomForm from '../Form/UpdateRoomForm'
 import useAxiosSecure from '../../hooks/useAxiosSecure'
 import { useState } from 'react'
 import { imageUpload } from '../../Api/Utils'
+import toast from 'react-hot-toast'
 
 const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
     const axiosSecure = useAxiosSecure();
@@ -23,7 +24,8 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
         setLoading(true);
         try {
             const image_url = await imageUpload(image);
-            setRoomData({ ...roomData, image: image_url })
+            setRoomData({ ...roomData, image: image_url });
+            console.log(roomData);
         }
         catch (err) {
             console.log(err);
@@ -36,17 +38,37 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
         endDate: new Date(room?.to),
         key: 'selection'
     });
+
     // Date range handler
     const handleDates = item => {
         console.log(item);
-        setDates(item.selection);
+        setDates(item?.selection);
     };
 
     // handle submit
     const handelSubmit = async (e) => {
-        e.preventDefault()
-        console.log('submit');
-    }
+        e.preventDefault();
+        console.log('handle submit');
+        // const updatedRoomData = { ...roomData };
+        const updatedRoomData = Object.assign({}, roomData);
+        delete updatedRoomData._id;
+        console.log(updatedRoomData);
+        try {
+            const { data } = await axiosSecure.put(`/room/update/${room?._id}`, updatedRoomData);
+            toast.success('Room Info Updated');
+            console.log(data);
+            refetch();
+            setLoading(false);
+            setIsEditModalOpen(false);
+            return data;
+        }
+        catch (err) {
+            console.log(err);
+            setLoading(false);
+            toast.error(err.message);
+        }
+    };
+
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog
@@ -87,13 +109,12 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
                                 <div className='mt-2 w-full'>
                                     {/* Update room form */}
                                     <UpdateRoomForm
-                                        refetch={refetch}
+                                        loading={loading}
 
                                         handelSubmit={handelSubmit}
                                         handleDates={handleDates}
                                         dates={dates}
                                         roomData={roomData}
-                                        loading={loading}
                                         handleImage={handleImage}
                                         setRoomData={setRoomData} />
                                 </div>

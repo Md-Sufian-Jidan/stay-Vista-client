@@ -5,16 +5,16 @@ import DeleteModal from '../../Modal/DeleteModal'
 import UpdateRoomModal from '../../Modal/UpdateRoomModal'
 
 const RoomDataRow = ({ room, handleDelete, refetch }) => {
-    console.log(room);
+    // console.log(room);
     // for delete modal
     const [isOpen, setIsOpen] = useState(false);
+    //for update modal
     const [isEditOpen, setIsEditOpen] = useState(false);
 
     const closeModal = () => {
         setIsOpen(false);
     };
 
-    //for update modal
     return (
         <tr>
             <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
@@ -70,7 +70,7 @@ const RoomDataRow = ({ room, handleDelete, refetch }) => {
                     <span className='relative'>Update</span>
                 </button>
                 {/* Update Modal */}
-                <UpdateRoomModal room={room} refetch={refetch} setIsEditModalOpen={setIsEditOpen} isOpen={isEditOpen}  />
+                <UpdateRoomModal room={room} refetch={refetch} setIsEditModalOpen={setIsEditOpen} isOpen={isEditOpen} />
             </td>
         </tr>
     )

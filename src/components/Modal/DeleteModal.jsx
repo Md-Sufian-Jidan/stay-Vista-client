@@ -79,7 +79,7 @@ DeleteModal.propTypes = {
     closeModal: PropTypes.func,
     handleDelete: PropTypes.func,
     isOpen: PropTypes.bool,
-    id: PropTypes.str,
+    id: PropTypes.string,
 };
 
 export default DeleteModal
