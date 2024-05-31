@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import LoadingSpinner from "../Shared/LoadingSpinner";
 
 
-const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData, dates, handleDates, loading }) => {
+const UpdateRoomForm = ({ roomData, handelSubmit, handleImage, setRoomData, dates, handleDates, loading }) => {
 
     if (loading) return <LoadingSpinner />
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handelSubmit}>
                 <div className='grid grid-cols-1 gap-10'>
                     <div className='space-y-1 text-sm'>
                         <label htmlFor='location' className='block text-gray-600'>
@@ -20,8 +20,8 @@ const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData, date
                             name='location'
                             id='location'
                             //for real controlled input
-                            value={roomData?.location}
-                            onChange={(e) => setRoomData({ ...roomData, location: e.target.value })}
+                            defaultValue={roomData?.location}
+                            onBlur={(e) => setRoomData({ ...roomData, location: e.target.value })}
                             type='text'
                             placeholder='Location'
                             required
@@ -194,11 +194,11 @@ const UpdateRoomForm = ({ roomData, handleSubmit, handleImage, setRoomData, date
 
 UpdateRoomForm.propTypes = {
     roomData: PropTypes.object,
-    handleSubmit: PropTypes.func,
+    handelSubmit: PropTypes.func,
     handleImage: PropTypes.func,
     setRoomData: PropTypes.func,
     dates: PropTypes.object,
     handleDates: PropTypes.func,
-    loading:PropTypes.bool,
+    loading: PropTypes.bool,
 };
 export default UpdateRoomForm;

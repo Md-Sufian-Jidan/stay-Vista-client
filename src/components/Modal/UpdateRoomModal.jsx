@@ -1,11 +1,5 @@
 import PropTypes from 'prop-types'
-import {
-    Dialog,
-    Transition,
-    TransitionChild,
-    DialogPanel,
-    DialogTitle,
-} from '@headlessui/react'
+import { Dialog, Transition, TransitionChild, DialogPanel, DialogTitle, } from '@headlessui/react'
 import { Fragment } from 'react'
 import UpdateRoomForm from '../Form/UpdateRoomForm'
 import useAxiosSecure from '../../hooks/useAxiosSecure'
@@ -16,7 +10,7 @@ import toast from 'react-hot-toast'
 const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
     const axiosSecure = useAxiosSecure();
     // custom states
-    const { loading, setLoading } = useState();
+    const [loading, setLoading] = useState(false);
     const [roomData, setRoomData] = useState(room);
 
     // handle Image Update
@@ -29,6 +23,7 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
         }
         catch (err) {
             console.log(err);
+            setLoading(false);
         }
     };
 
@@ -44,6 +39,7 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
         console.log(item);
         setDates(item?.selection);
     };
+    console.log(room);
 
     // handle submit
     const handelSubmit = async (e) => {
@@ -56,10 +52,10 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, room, refetch }) => {
         try {
             const { data } = await axiosSecure.put(`/room/update/${room?._id}`, updatedRoomData);
             toast.success('Room Info Updated');
-            console.log(data);
+            setIsEditModalOpen(false);
             refetch();
             setLoading(false);
-            setIsEditModalOpen(false);
+            console.log(data);
             return data;
         }
         catch (err) {
