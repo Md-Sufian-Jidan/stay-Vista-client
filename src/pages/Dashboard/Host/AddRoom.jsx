@@ -14,6 +14,7 @@ const AddRoom = () => {
   const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
   const [imageText, setImageText] = useState('Upload image');
+  
   // set the calender
   const [dates, setDates] = useState({
     startDate: new Date(),
